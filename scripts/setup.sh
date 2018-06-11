@@ -14,7 +14,7 @@ popd > /dev/null
 OK "Submodules initialized"
 
 INFO "Initializing CogNOS"
-pushd CogNOS
+pushd "$BASE_DIR/CogNOS"
 ./scripts/setupRepo.sh
 popd > /dev/null
 OK "Submodules initialized"
@@ -35,8 +35,8 @@ then
     INFO "Installing are we fast benchmarks into Pharo image"
     cp "$IMAGE_DIR/$IMAGE_NAME.image" "$ARE_WE_FAST_DIR/$IMAGE_NAME.image"
     pushd $ARE_WE_FAST_DIR
-    $IMAGE_DIR/pharo-ui build-image.st
-    mv "$ARE_WE_FAST_DIR/$IMAGE_NAME.image" "$IMAGE_DIR/$IMAGE_NAME.image" 
+    ../../$IMAGE_DIR/pharo-ui $IMAGE_NAME.image build-image.st
+    mv "$IMAGE_NAME.image" "../../$IMAGE_DIR/$IMAGE_NAME.image" 
     popd > /dev/null
     OK "done"
 fi
