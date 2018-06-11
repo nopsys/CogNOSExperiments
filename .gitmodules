@@ -1,0 +1,6 @@
+[submodule "CogNOS"]
+	path = CogNOS
+	url = https://github.com/nopsys/CogNOS
+[submodule "are-we-fast-yet"]
+	path = are-we-fast-yet
+	url = git@github.com:charig/are-we-fast-yet.git
