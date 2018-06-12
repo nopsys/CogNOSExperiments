@@ -3,4 +3,4 @@
 	url = https://github.com/nopsys/CogNOS
 [submodule "are-we-fast-yet"]
 	path = are-we-fast-yet
-	url = https://github.com/nopsys/are-we-fast-yet
+	url = https://github.com/charig/are-we-fast-yet
