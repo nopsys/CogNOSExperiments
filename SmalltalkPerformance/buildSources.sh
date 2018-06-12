@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -e
+
+SCRIPT_PATH=`dirname $0`
+
 source "$SCRIPT_PATH/../scripts/basicFunctions.inc"
 
 BASE_DIR="$SCRIPT_PATH/.."
@@ -12,10 +15,10 @@ source get64VMName.sh
 if [ "$1" = "interpreter" ]    
 then
 	INFO "Generating Interpreter Sources"
-    $VM -headless $BASE.image $SCRIPT_PATH/scripts/Smalltalk/buildInterpreterSources.st
+    $VM $BASE64.image ../../../SmalltalkPerformance/scripts/smalltalk/buildInterpreterSources.st
 else  
 	INFO "Generating JIT Sources"
-    $VM -headless $BASE.image $SCRIPT_PATH/scripts/Smalltalk/buildJitSources.st
+    $VM -headless $BASE64.image ../../../SmalltalkPerformance/scripts/smalltalk/buildJitSources.st
 fi
 
 OK "done"
