@@ -15,7 +15,7 @@ OK "Submodules initialized"
 
 INFO "Initializing CogNOS"
 pushd "$BASE_DIR/CogNOS"
-./scripts/setupRepo.sh
+./scripts/setupRepoForExperiments.sh
 popd > /dev/null
 OK "Submodules initialized"
 
