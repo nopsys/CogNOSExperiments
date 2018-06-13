@@ -1,0 +1,30 @@
+<<performance, echo=FALSE, include=FALSE>>=
+if (Sys.getenv("RSTUDIO") == "1") { 
+  setwd("/Users/guidochari/Documents/Projects/Research/Nopsys/CogNOSExperiments/Report")
+  setwd("/Users/guidochari/Documents/Projects/Research/Nopsys/CogNOSExperiments/Report/BasePerformance")
+  #setwd("/home/guido/Documents/Projects/MatePerformance/Report")
+}
+
+root_path <- getwd()
+
+source("Scripts/libraries.R", chdir=TRUE, echo=FALSE)
+
+opts_knit$set(child.path = "")
+
+knitr::opts_chunk$set(fig.path=paste0(getwd(),"/images/"), echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE, knitr.table.format = "latex")
+
+root_path <- getwd()
+
+options(scipen = 5)
+
+source("Scripts/data-processing.R")
+source("Scripts/plots.R")
+#source("Scripts/colors.R", chdir=TRUE, echo=FALSE)
+source("Scripts/auxiliaryFunctions.R", chdir=TRUE)
+
+iterationsAndInliningFilename <- "../../Data/iterationsAndInlining.tsv"
+iterationsAndInliningCols <- c("Benchmark", "Iterations")
+numberOfIterationsPerBenchmark <- 50
+
+@
+<<LanguagesPerformance, child='BasePerformance/overview.Rnw', results='asis'>>=

@@ -1,0 +1,6 @@
+.DS_Store
+Report/cache/
+Report/data/
+Report/images/
+Report/*.log
+Report/report.tex
