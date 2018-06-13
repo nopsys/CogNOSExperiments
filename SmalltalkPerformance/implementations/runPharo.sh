@@ -18,6 +18,8 @@ else
 ERR "First argument must be --interpreter or --jit"
 fi
 
+echo $VM_DIR
+
 pushd $VM_DIR
 ./$EXECUTALBE $IMAGE ${@:2}    
-popd /dev/null
+popd > /dev/null
