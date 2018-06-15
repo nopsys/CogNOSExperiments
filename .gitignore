@@ -4,3 +4,8 @@ Report/data/
 Report/images/
 Report/*.log
 Report/report.tex
+
+# Files left after experiments run
+SmalltalkPerformance/areWeFast.data
+SmalltalkPerformance/resultsFromCogNOS.txt
+SmalltalkPerformance/scripts/smalltalk/prepareForExperiment.st

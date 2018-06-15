@@ -34,9 +34,11 @@ if [ -f "$IMAGE_DIR/$IMAGE_NAME.image" ]
 then
     INFO "Installing are we fast benchmarks into Pharo image"
     cp "$IMAGE_DIR/$IMAGE_NAME.image" "$ARE_WE_FAST_DIR/$IMAGE_NAME.image"
+    cp "$IMAGE_DIR/$IMAGE_NAME.changes" "$ARE_WE_FAST_DIR/$IMAGE_NAME.changes"
     pushd $ARE_WE_FAST_DIR
     ../../$IMAGE_DIR/pharo-ui $IMAGE_NAME.image build-image.st
     mv "$IMAGE_NAME.image" "../../$IMAGE_DIR/$IMAGE_NAME.image" 
+    mv "$IMAGE_NAME.changes" "../../$IMAGE_DIR/$IMAGE_NAME.changes" 
     popd > /dev/null
     OK "done"
 fi
