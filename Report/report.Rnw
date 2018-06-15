@@ -1,7 +1,6 @@
 <<performance, echo=FALSE, include=FALSE>>=
 if (Sys.getenv("RSTUDIO") == "1") { 
   setwd("/Users/guidochari/Documents/Projects/Research/Nopsys/CogNOSExperiments/Report")
-  setwd("/Users/guidochari/Documents/Projects/Research/Nopsys/CogNOSExperiments/Report/BasePerformance")
   #setwd("/home/guido/Documents/Projects/MatePerformance/Report")
 }
 
@@ -27,4 +26,6 @@ iterationsAndInliningCols <- c("Benchmark", "Iterations")
 numberOfIterationsPerBenchmark <- 50
 
 @
-<<LanguagesPerformance, child='BasePerformance/overview.Rnw', results='asis'>>=
+<<Overview-Performance, child='BasePerformance/overview.Rnw', results='asis'>>=
+@
+<<Individual-Performance, child='BasePerformance/individual.Rnw', results='asis'>>=

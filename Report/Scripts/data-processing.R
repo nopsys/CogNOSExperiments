@@ -47,31 +47,10 @@ map_names <- function(old_names, name_map) {
 }
 
 vmNamesMap <- function() {
-  name_map <-     list("Java8U66"              = "Java, 1.8.0_66",
-                       #                       "JRubyJ8"               = "Ruby, JRuby 9.0.4.0 + indy", #invokedynamic
-                       #                       "MRI22"                 = "Ruby, MRI 2.2",
-                       #                       "MRI23"                 = "Ruby, MRI 2.3",
-                       #                       "RBX314"                = "Ruby, Rubinius 3.14",
-                       #                       "GraalJS"               = "JavaScript, GraalJS",
-                                               "Node"                  = "Node.js",
-                       #                       "SOMns"                 = "SOMns, Newspeak, master",
-                       #                       "SOMns-Enterprise"      = "SOMns, Newspeak",
-                       #                       "JRubyTruffle"          = "Ruby, JRuby+Truffle, truffle head (basic)",
-                       #                       "JRubyTruffleEnterprise" = "Ruby, JRuby+Truffle", # , truffle head
-                       
-                       "TruffleSOM-graal"                      = "SOMpe",
-                       "TruffleMate-graal"                     = "MATEpe",
-                       "RTruffleSOM"                           = "SOMmt",
-                       "RTruffleMate"                          = "MATEmt",
-                       "RTruffleMate-envInObj"                 = "MATEmt-envInObj",
-                       "TruffleSOM-graal-enterprise"           = "SOMpe",
-                       "TruffleMate-graal-enterprise"          = "MATEpe",
-                       "TruffleMate-graal-enterprise-naive"    = "MATEpe-NoOpt",
-                       "TruffleMate-graal-enterprise-envInObj" = "MATEpe-envInObj",
-                       "Pharo"                  = "Pharo")
-  #                       "TruffleSOM-graal-no-split" = "TruffleSOM.ns",
-  #                       "SOMpp"                 = "SOM++")
-  # Rename
+  name_map <-     list(
+    "Pharo-interpreter-remote"     = "Pharo-IntR", 
+    "Pharo-JIT-remote"             = "Pharo-JitR",
+    "CogNOS-interpreter"           = "NOS-Int")
   name_map
 }
 
@@ -91,9 +70,13 @@ getFilteredData <- function(filename, filterColumns, vmNames, keepVms, iteration
   steady
 }
 
-getWarmedupData <- function(filename, filterColumns, vmNames, keepVms, numberOfIterations) {
+getWarmedupData <- function(filename, filterColumns, vmNames, keepVms, numberOfIterations, sinceIteration = 0) {
   data <- getRawData(filename, filterColumns, vmNames, keepVms)
-  steady <- selectWarmedupData(data, numberOfIterations)
+  if (sinceIteration != 0){
+    steady <- data[data$Iteration >= sinceIteration & data$Iteration < sinceIteration + numberOfIterations,]    
+  } else {
+    steady <- selectWarmedupData(data, numberOfIterations)
+  }
   steady
 }
 
@@ -102,6 +85,7 @@ getWarmupData <- function(filename, filterColumns, vmNames, keepVms, numberOfIte
   steady <- selectWarmupData(data, numberOfIterations)
   steady
 }
+
 
 selectWarmedupData <- function(data, numberOfIterations) {
   return (selectData(data, numberOfIterations, TRUE))

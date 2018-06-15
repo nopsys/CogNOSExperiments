@@ -1,17 +1,12 @@
-<<LanguagesPerformance, echo=FALSE, message=FALSE>>=
+<<Overview-Performance, echo=FALSE, message=FALSE>>=
 knitr::opts_chunk$set(fig.width=10, fig.height=5,
                       echo=FALSE, warning=FALSE, message=FALSE, results="asis")
 
-steady <- getRawData(paste(root_path, "data/areWeFast.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
+steady <- getWarmedupData(paste(root_path, "data/cognos.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
                           vmNamesMap(), 
-                          c("Pharo-interpreter-remote", "Pharo-JIT-remote"),
-                          numberOfIterationsPerBenchmark)
-
-
-vmNames <- list("Pharo-interpreter-remote"     = "Pharo-IntR", 
-                "Pharo-JIT-remote"             = "Pharo-JitR")
-
-steady <- change_names(steady, vmNames, "VM")
+                          c("Pharo-IntR", "Pharo-JitR", "NOS-Int"),
+                          numberOfIterationsPerBenchmark,
+                          2)
 
 baseline <- steady[steady$VM == "Pharo-JitR",]
 
@@ -19,7 +14,7 @@ summarizedPerBenchAndVM <- summarizedPerBenchmark(steady, c(0,10000), baseline, 
 
 vm_colors <- brewer.pal(12, "Paired")  # to replace scale_fill_brewer(type = "qual", palette = "Paired")
 
-names(vm_colors) <- vmNames
+names(vm_colors) <- vmNamesMap()
 
 @
 \def\BasicPerformancelot{%
