@@ -16,9 +16,9 @@ fi
 
 if [ $1 = "Ubuntu" ]
 then
-    sleep 15s
+    sleep 12s
 else
-    sleep 10s
+    sleep 8s
 fi
 exec 1<&4
 ssh -X osboxes@localhost -p 25000 -i CogNOSExperiments CogNOSExperiments/SmalltalkPerformance/implementations/runPharo.sh ${@:2}

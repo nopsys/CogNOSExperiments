@@ -18,6 +18,9 @@ ST_FILENAME_TP="../../SmalltalkPerformance/scripts/smalltalk/prepareForExperimen
 ST_FILENAME="../../SmalltalkPerformance/scripts/smalltalk/prepareForExperiment.st"
 OUTPUT_FILE="resultsFromCogNOS.txt"
 
+FILENAME=$(pwd)/$OUTPUT_FILE
+VBoxManage modifyvm "CogNOS-iso-debug" --uartmode1 file $FILENAME
+
 INFO "Building image for experiment"
 pushd "$IMAGE_DIR" > /dev/null
 cp $IMAGE_NAME $IMAGE_NAME.bak
@@ -33,8 +36,6 @@ if [ -f "../../../nopsys/build/nopsys.iso" ]
 then
     rm "../../../nopsys/build/nopsys.iso"
 fi
-FILENAME=$(pwd)/$OUTPUT_FILE
-VBoxManage modifyvm "CogNOS-iso-debug" --uartmode1 file $FILENAME
 make try-virtualbox-iso > /dev/null
 popd > /dev/null
 while ! grep -q "FINISHHHHH" "$OUTPUT_FILE" > /dev/null;
