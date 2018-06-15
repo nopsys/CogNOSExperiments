@@ -23,5 +23,5 @@ fi
 exec 1<&4
 ssh -X osboxes@localhost -p 25000 -i CogNOSExperiments CogNOSExperiments/SmalltalkPerformance/implementations/runPharo.sh ${@:2}
 exec 1>/dev/null
-VBoxManage controlvm $VMNAME poweroff
+VBoxManage controlvm $VMNAME acpipowerbutton
 exit 0
