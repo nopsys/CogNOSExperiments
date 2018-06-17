@@ -3,14 +3,14 @@ set -e
 
 SCRIPT_PATH=`dirname $0`
 
-source "$SCRIPT_PATH/../scripts/basicFunctions.inc"
+source "$SCRIPT_PATH/../../scripts/basicFunctions.inc"
 
-BASE_DIR="$SCRIPT_PATH/.."
+BASE_DIR="../.."
 COGNOS_DIR="$BASE_DIR/CogNOS"
-VM_DEV_DIR=$COGNOS_DIR/opensmalltalk-vm/image
+VM_DEV_DIR="$COGNOS_DIR/opensmalltalk-vm/image"
 VM_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/build.linux64x64"
 INT_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/"
-INSTALL_DIR="implementations"
+INSTALL_DIR="BASE_DIR..//SmalltalkPerformance/implementations"
 PRODUCTS_DIR="$COGNOS_DIR/opensmalltalk-vm/products"
 
 pushd $VM_DEV_DIR
