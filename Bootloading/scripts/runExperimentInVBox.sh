@@ -44,10 +44,14 @@ then
     pushd "../"
     tail -n +9 $OUTPUT_FILE > $OUTPUT_FILE.bak2
     mv $OUTPUT_FILE.bak2 $OUTPUT_FILE
+    sed -i.bak "s/^/$VM, /" $OUTPUT_FILE
+    rm $OUTPUT_FILE.bak
     popd > /dev/null
     VBoxManage controlvm $VM poweroff
 else
     sleep 15s
-    scp -P 25000 -i ../Keys/CogNOSExperiments osboxes@localhost:/var/startup-log $VM-boottimes.data
+    scp -P 25000 -i ../../Keys/CogNOSExperiments osboxes@localhost:/var/startup-log ../$VM-boottimes.data
+    sed -i.bak "s/^/$VM, /" ../$VM-boottimes.data
+    rm ../$VM-boottimes.data.bak
     VBoxManage controlvm $VM acpipowerbutton
 fi
