@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+set -e
 
-BASE=".."
-source "$BASE/scripts/basicFunctions.inc"
+BASE="../"
+source `dirname $0`/../scripts/basicFunctions.inc
 
-PAPER_DIR="$BASE/../../../../Writings/Research/Nopsis/"
+PAPER_DIR="$BASE../../../../Writings/Research/Nopsis"
 REPORT_DIR="$BASE/Report"
 
 INFO "Copying files to paper dir"
