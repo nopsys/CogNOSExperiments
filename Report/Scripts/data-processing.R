@@ -54,6 +54,13 @@ vmNamesMap <- function() {
   name_map
 }
 
+osNamesMap <- function() {
+  name_map <-     list(
+    "CogNOS-iso-debug"   = "CogNOS", 
+    "Ubuntu"             = "Ubuntu")
+  name_map
+}
+
 getRawData <- function(filename, filterColumns, vmNames, keepVMs, maxIteration = 0) {
   data <- getAndPrepareData(filename, filterColumns)
   data <- change_names(data, vmNames, "VM")
@@ -84,6 +91,12 @@ getWarmupData <- function(filename, filterColumns, vmNames, keepVms, numberOfIte
   data <- getRawData(filename, filterColumns, vmNames, keepVms)
   steady <- selectWarmupData(data, numberOfIterations)
   steady
+}
+
+getBootData <- function(filename, vmNames) {
+  data <- read.csv(file=filename, header = FALSE, col.names= c("VM", "Service", "Cycles"), sep=",")
+  data <- change_names(data, vmNames, "VM")
+  data
 }
 
 
@@ -153,8 +166,3 @@ selectData <- function(data, numberOfIterations, warmedup) {
 
 microBenchmarks <- c("Bounce", "List", "Mandelbrot", "NBody", "Permute", "Queens", "Sieve", "Storage", "Towers", "Fibonacci", "Recurse")
 macroBenchmarks <- c("CD", "DeltaBlue", "Havlak", "Json", "Richards")
-
-mtVMs <- c("SOMmt", "MATEmt", "MATEmt-envInObj")
-peVMs <- c("SOMpe", "SOMpe-Ent", "MATEpe", "MATEpe-envInObj")
-
-tracingBenchmarks <- c("QuickSort", "NBody", "DeltaBlue", "JsonBig")

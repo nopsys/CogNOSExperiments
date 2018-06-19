@@ -3,7 +3,7 @@ knitr::opts_chunk$set(fig.width=10, fig.height=5,
                       echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE)
 
 steady <- getWarmedupData(paste(root_path, "data/cognos.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
-                          vmNamesMap(), 
+                          vmNamesMap(),
                           c("Pharo-IntR", "Pharo-JitR", "NOS-Int"),
                           numberOfIterationsPerBenchmark,
                           2)

@@ -29,3 +29,5 @@ numberOfIterationsPerBenchmark <- 50
 <<Overview-Performance, child='BasePerformance/overview.Rnw', results='asis'>>=
 @
 <<Individual-Performance, child='BasePerformance/individual.Rnw', results='asis'>>=
+@
+<<Bootloading, child='Bootloading/overview.Rnw', results='asis'>>=
