@@ -18,7 +18,7 @@ overall <- ddply(data, ~Language, summarise,
            Methods=sum(Methods),
            LOC=sum(LOC))
 
-overall <- rbind(overall, data.frame(Language='Total', clases=sum(overall$clases), methods=sum(overall$methods), LOC=sum(overall$LOC)))
+overall <- rbind(overall, data.frame(Language='Total', Clases=sum(overall$Clases), Methods=sum(overall$Methods), LOC=sum(overall$LOC)))
 
 @
 \def\StatisticsTableSummary{%
