@@ -1,0 +1,49 @@
+<<Overview-Statistics, echo=FALSE, message=FALSE>>=
+knitr::opts_chunk$set(fig.width=10, fig.height=5,
+                      echo=FALSE, warning=FALSE, message=FALSE, results="asis")
+
+data <- getCsvData(paste(root_path, "data/statistics.data",sep="/"), c("VM", "Package", "Language", "Artifact", "Methods","LOC"), osNamesMap)
+data[is.na(data)] <- 0
+
+data <- data[data$Package != "Storage-Tests" & data$Package != "Devices-Network" & data$Package != "Devices-USB" 
+             & data$Package != "Memory-Manager" & data$Package != "MemoryManager-Paging" & data$Package != "OFW-OLPC",]
+
+stats <- ddply(data, ~Package + Language, summarise, 
+           Clases=length(Artifact), 
+           Methods=sum(Methods),
+           LOC=sum(LOC))
+
+overall <- ddply(data, ~Language, summarise, 
+           Clases=length(Artifact), 
+           Methods=sum(Methods),
+           LOC=sum(LOC))
+
+overall <- rbind(overall, data.frame(Language='Total', clases=sum(overall$clases), methods=sum(overall$methods), LOC=sum(overall$LOC)))
+
+@
+\def\StatisticsTableSummary{%
+<<statistics-table-summary>>=
+print(
+  kable(arrange(stats, Language), 
+       booktabs = T,
+       format = "latex",
+       caption = "Source code statistics",
+       digits = 2)  %>%
+       kable_styling(latex_options = c("repeat_header"), font_size = 8))
+
+@
+}
+
+@
+\def\StatisticsTableOverall{%
+<<statistics-table-overall>>=
+print(
+  kable(arrange(overall, Language), 
+       booktabs = T,
+       format = "latex",
+       caption = "Source code overall",
+       digits = 2)  %>%
+       kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
+       row_spec(3, hline_after = T))
+@
+}

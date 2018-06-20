@@ -93,8 +93,8 @@ getWarmupData <- function(filename, filterColumns, vmNames, keepVms, numberOfIte
   steady
 }
 
-getBootData <- function(filename, vmNames) {
-  data <- read.csv(file=filename, header = FALSE, col.names= c("VM", "Service", "Cycles"), sep=",")
+getCsvData <- function(filename, columnNames, vmNames) {
+  data <- read.csv(file=filename, header = FALSE, col.names=columnNames, sep=",", quote="")
   data <- change_names(data, vmNames, "VM")
   data
 }
