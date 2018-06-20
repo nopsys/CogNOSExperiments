@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 SCRIPT_PATH=`dirname $0`
 
 source "$SCRIPT_PATH/../../scripts/basicFunctions.inc"
@@ -49,9 +48,10 @@ then
     popd > /dev/null
     VBoxManage controlvm $VM poweroff
 else
-    sleep 15s
+    sleep 20s
     scp -P 25000 -i ../../Keys/CogNOSExperiments osboxes@localhost:/var/startup-log ../$VM-boottimes.data
     sed -i.bak "s/^/$VM, /" ../$VM-boottimes.data
     rm ../$VM-boottimes.data.bak
     VBoxManage controlvm $VM acpipowerbutton
+    sleep 10s
 fi

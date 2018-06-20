@@ -2,18 +2,30 @@
 knitr::opts_chunk$set(fig.width=10, fig.height=5,
                       echo=FALSE, warning=FALSE, message=FALSE, results="asis")
 
-setwd("/Users/guidochari/Documents/Projects/Research/Nopsys/CogNOSExperiments/Report/Bootloading")
-steady <- getBootData(paste(root_path, "data/boottime.data",sep="/"), osNamesMap)
+steady <- getCsvData(paste(root_path, "data/boottime.data",sep="/"), c("VM", "Service", "Cycles"), osNamesMap)
 
 ubuntu <- steady[steady$VM == "Ubuntu" & steady$Cycles != max(steady$Cycles),]
-ubuntu <- ubuntu[ubuntu$Cycles != max(ubuntu$Cycles),]
+ubuntuServer <- steady[steady$VM == "Ubuntu-Server" & steady$Cycles != max(steady$Cycles),]
+
 #Max value is buggy
+ubuntu <- ubuntu[ubuntu$Cycles != max(ubuntu$Cycles),]
+ubuntuServer <- ubuntuServer[ubuntuServer$Cycles != max(ubuntuServer$Cycles),]
+
+#mins
 minUbuntu <- ubuntu[ubuntu$Cycles == min(ubuntu$Cycles),]
-minUbuntu$VM = "Ubuntu-min"
+minUbuntu$VM = "Ubu-min"
+minUbuntuServer <- ubuntuServer[ubuntuServer$Cycles == min(ubuntuServer$Cycles),]
+minUbuntuServer$VM = "Ubu-S-min"
+
+#maxs
 maxUbuntu <- ubuntu[ubuntu$Cycles == max(ubuntu$Cycles),]
-maxUbuntu$VM = "Ubuntu-max"
+maxUbuntu$VM = "Ubu-max"
+maxUbuntuServer <- ubuntuServer[ubuntuServer$Cycles == max(ubuntuServer$Cycles),]
+maxUbuntuServer$VM = "Ubu-S-max"
+
 cognos <- steady[steady$VM == "CogNOS-iso-debug",]
-boottimes <- rbind(minUbuntu, maxUbuntu, cognos) 
+cognos$VM <- "CogNOS"
+boottimes <- rbind(minUbuntu, maxUbuntu, minUbuntuServer, maxUbuntuServer, cognos) 
 
 @
 \def\BoottimePlot{%
