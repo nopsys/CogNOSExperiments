@@ -5,8 +5,10 @@ knitr::opts_chunk$set(fig.width=10, fig.height=5,
 data <- getCsvData(paste(root_path, "data/statistics.data",sep="/"), c("VM", "Package", "Language", "Artifact", "Methods","LOC"), osNamesMap)
 data[is.na(data)] <- 0
 
-data <- data[data$Package != "Storage-Tests" & data$Package != "Devices-Network" & data$Package != "Devices-USB" 
-             & data$Package != "Memory-Manager" & data$Package != "MemoryManager-Paging" & data$Package != "OFW-OLPC",]
+data <- data[data$Package != "Storage-Tests" 
+             & data$Package != "Devices-Network" & data$Package != "Devices-USB" & data$Package != "Devices-Memory"  
+             & data$Package != "Memory-Manager" & data$Package != "MemoryManager-Paging" & data$Package != "OFW-OLPC"
+             & data$Package != "FileSupport" & data$Package != "PharoCompatibility",]
 
 stats <- ddply(data, ~Package + Language, summarise, 
            Clases=length(Artifact), 
@@ -29,12 +31,12 @@ print(
        format = "latex",
        caption = "Source code statistics",
        digits = 2)  %>%
-       kable_styling(latex_options = c("repeat_header"), font_size = 8))
-
+       kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
+       row_spec(1, hline_after = T) %>%
+       row_spec(4, hline_after = T))
 @
 }
 
-@
 \def\StatisticsTableOverall{%
 <<statistics-table-overall>>=
 print(
@@ -45,5 +47,24 @@ print(
        digits = 2)  %>%
        kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
        row_spec(3, hline_after = T))
+@
+}
+
+
+\def\AssemblyLinesOfCode {%
+<<statistics-assemblyloc>>=
+cat(round(overall$LOC[overall$Language == "Assembly"], digits=2))
+@
+}
+
+\def\CLinesOfCode {%
+<<statistics-cloc>>=
+cat(round(overall$LOC[overall$Language == "C"], digits=2))
+@
+}
+
+\def\SmalltalkLinesOfCode {%
+<<statistics-smalltalkloc>>=
+cat(round(overall$LOC[overall$Language == "Smalltalk"], digits=2))
 @
 }
