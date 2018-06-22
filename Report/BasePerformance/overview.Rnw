@@ -4,7 +4,7 @@ knitr::opts_chunk$set(fig.width=10, fig.height=5,
 
 steady <- getWarmedupData(paste(root_path, "data/cognos.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
                           vmNamesMap(), 
-                          c("Pharo-IntR", "Pharo-JitR", "NOS-Int"),
+                          c("Pharo-IntR", "Pharo-JitR", "NOS-Int", "NOS-Jit"),
                           numberOfIterationsPerBenchmark,
                           2)
 
@@ -17,9 +17,9 @@ vm_colors <- brewer.pal(12, "Paired")  # to replace scale_fill_brewer(type = "qu
 names(vm_colors) <- vmNamesMap()
 
 @
-\def\BasicPerformancelot{%
-<<basic-performance-overview, fig.width=5, fig.height=2, fig.cap='Overhead factor of different dynamic programming language implementations normalized to Java. Benchmarks were selected from Marr et al.\\ in~\\cite{Marr:2016:AWFY}. The suite was designed for cross-comparing language implementations', out.width = "0.8\\textwidth", fig.align="center">>=
-overview_box_plot(summarizedPerBenchAndVM, c(1,18))
+\def\BasicPerformancePlot{%
+<<basic-performance-overview, fig.width=5, fig.height=2, fig.cap='Overhead factors of running Pharo on top of COGNOOS and UNIX for both, interpreted and JIT versions. Baseline is the Cog VM in Ubuntu 17.10. Benchmarks were selected from Marr et al.\\ in~\\cite{Marr:2016:AWFY}.', out.width = "0.95\\linewidth", fig.align="center">>=
+overview_box_plot(summarizedPerBenchAndVM, c(1,13))
 @
 }%
 

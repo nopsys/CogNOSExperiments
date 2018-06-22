@@ -50,7 +50,8 @@ vmNamesMap <- function() {
   name_map <-     list(
     "Pharo-interpreter-remote"     = "Pharo-IntR", 
     "Pharo-JIT-remote"             = "Pharo-JitR",
-    "CogNOS-interpreter"           = "NOS-Int")
+    "CogNOS-interpreter"           = "NOS-Int",
+    "CogNOS-jit"                   = "NOS-Jit")
   name_map
 }
 

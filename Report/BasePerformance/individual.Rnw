@@ -34,18 +34,3 @@ print(
        collapse_rows(columns = 1:2))
 @
 }
-
-\def\IndividualTableOverall{%
-<<individual-overall-table>>=
-overallData <- summarizeOverall(summarySteadyFiltered, ~ VM)
-colnames <- c("Runtime", "OF","CI-95%","Sd.", "Min","Max", "Median")
-kable(arrange(overallData, Geomean), 
-       booktabs = T,
-       format = "latex",
-       digits = 2,
-       caption = "Overall Inherent Results for the Micro Benchmarks",
-       col.names=colnames
-      )  %>%
-       kable_styling(latex_options = c("repeat_header"), font_size = 8)
-@
-}
