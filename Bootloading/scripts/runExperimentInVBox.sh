@@ -47,6 +47,14 @@ then
     rm $OUTPUT_FILE.bak
     popd > /dev/null
     VBoxManage controlvm $VM poweroff
+elif [[ $VM = *"Minix"* ]] 
+then
+    sleep 5s
+    scp -P 25000 -i ../../Keys/CogNOSExperiments root@localhost:/var/startup-log ../$VM-boottimes.data
+    sed -i.bak "s/^/$VM, /" ../$VM-boottimes.data
+    rm ../$VM-boottimes.data.bak
+    VBoxManage controlvm $VM shutdown
+    sleep 5s
 else
     sleep 20s
     scp -P 25000 -i ../../Keys/CogNOSExperiments osboxes@localhost:/var/startup-log ../$VM-boottimes.data

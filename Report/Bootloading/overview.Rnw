@@ -25,11 +25,14 @@ maxUbuntuServer$VM = "Ubu-S-max"
 
 cognos <- steady[steady$VM == "CogNOS-iso-debug",]
 cognos$VM <- "CogNOS"
-boottimes <- rbind(minUbuntu, maxUbuntu, minUbuntuServer, maxUbuntuServer, cognos) 
+minix <- steady[steady$VM == "Minix3",]
+minix$VM <- "Minix"
+
+boottimes <- rbind(minUbuntu, maxUbuntu, minUbuntuServer, maxUbuntuServer, cognos, minix) 
 
 @
 \def\BoottimePlot{%
-<<boottimes-overview, fig.width=5, fig.height=2, fig.cap='', out.width = "0.8\\textwidth", fig.align="center">>=
+<<boottimes-overview, fig.width=5, fig.height=2, fig.cap='Boot times comparison in terms of processor cycles taken from the moment the system becomes powered on. Results are expressed in logaritmhic scale.', out.width = "0.95\\linewidth", fig.align="center">>=
 ggplot(boottimes,
        aes(x=reorder(VM, Cycles), y=log(Cycles), fill=VM)) + 
        geom_bar(stat="identity") + scale_fill_hue(c = 40) + 

@@ -5,6 +5,7 @@ RESULTS_FILE_NAME="boottime.data"
 scripts/runExperimentInVBox.sh "Ubuntu"
 scripts/runExperimentInVBox.sh "Ubuntu-Server"
 scripts/runExperimentInVBox.sh "CogNOS-iso-debug"
+scripts/runExperimentInVBox.sh "Minix3"
 
 rm $RESULTS_FILE_NAME
 cat *.data >> $RESULTS_FILE_NAME
