@@ -10,7 +10,7 @@ COGNOS_DIR="$BASE_DIR/CogNOS"
 VM_DEV_DIR="$COGNOS_DIR/opensmalltalk-vm/image"
 VM_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/build.linux64x64"
 INT_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/"
-INSTALL_DIR="BASE_DIR../Performance/implementations"
+INSTALL_DIR="$BASE_DIR/Performance/implementations"
 PRODUCTS_DIR="$COGNOS_DIR/opensmalltalk-vm/products"
 
 pushd $VM_DEV_DIR
