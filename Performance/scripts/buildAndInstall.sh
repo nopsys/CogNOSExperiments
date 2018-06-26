@@ -10,7 +10,7 @@ COGNOS_DIR="$BASE_DIR/CogNOS"
 VM_DEV_DIR="$COGNOS_DIR/opensmalltalk-vm/image"
 VM_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/build.linux64x64"
 INT_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/"
-INSTALL_DIR="BASE_DIR../Performance/implementations"
+INSTALL_DIR="$BASE_DIR/Performance/implementations"
 PRODUCTS_DIR="$COGNOS_DIR/opensmalltalk-vm/products"
 
 pushd $VM_DEV_DIR
@@ -20,12 +20,12 @@ if [ "$1" = "interpreter" ]
 then
 	PRODUCTS_NAME="sqstkspur64linuxht"
     INFO "Generating Interpreter Sources"
-    FILENAME="../../../SmalltalkPerformance/scripts/smalltalk/buildInterpreterSources.st"
+    FILENAME="../../../Performance/scripts/smalltalk/buildInterpreterSources.st"
     VM_VERSION_BUILD_DIR="$VM_BUILD_DIR/squeak.stack.spur/build"
 else  
 	PRODUCTS_NAME="cogspur64linuxht"
     INFO "Generating JIT Sources"
-    FILENAME="../../../SmalltalkPerformance/scripts/smalltalk/buildJitSources.st"
+    FILENAME="../../../Performance/scripts/smalltalk/buildJitSources.st"
     VM_VERSION_BUILD_DIR="$VM_BUILD_DIR/pharo.cog.spur/build"
 fi
 
