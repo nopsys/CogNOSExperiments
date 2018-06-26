@@ -10,6 +10,11 @@ data <- data[data$Package != "Storage-Tests"
              & data$Package != "Memory-Manager" & data$Package != "MemoryManager-Paging" & data$Package != "OFW-OLPC"
              & data$Package != "FileSupport" & data$Package != "PharoCompatibility",]
 
+debugging <- data[data$Package == "Debugging console",]
+fonts <- data[data$Package == "Font headers",]
+
+data <- data[data$Package != "Debugging console" & data$Package != "Font headers",]
+
 stats <- ddply(data, ~Package + Language, summarise, 
            Clases=length(Artifact), 
            Methods=sum(Methods),
@@ -66,5 +71,29 @@ cat(round(overall$LOC[overall$Language == "C"], digits=2))
 \def\SmalltalkLinesOfCode {%
 <<statistics-smalltalkloc>>=
 cat(round(overall$LOC[overall$Language == "Smalltalk"], digits=2))
+@
+}
+
+\def\DebuggingLinesOfCode {%
+<<statistics-debuggingloc>>=
+cat(round(debugging$LOC, digits=2))
+@
+}
+
+\def\FontsLinesOfCode {%
+<<statistics-fontsloc>>=
+cat(round(fonts$LOC, digits=2))
+@
+}
+
+\def\FontsAndDebbugingLinesOfCode {%
+<<statistics-debuggingfontsloc>>=
+cat(round(fonts$LOC, digits=2) + round(debugging$LOC, digits=2))
+@
+}
+
+\def\CEssentialLinesOfCode {%
+<<statistics-essentialcloc>>=
+cat(round(overall$LOC[overall$Language == "C"], digits=2) - (round(fonts$LOC, digits=2) + round(debugging$LOC, digits=2)))
 @
 }

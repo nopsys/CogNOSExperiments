@@ -19,7 +19,7 @@ names(vm_colors) <- vmNamesMap()
 @
 \def\BasicPerformancePlot{%
 <<basic-performance-overview, fig.width=5, fig.height=2, fig.cap='Overhead factors of running Pharo on top of COGNOOS and UNIX for both, interpreted and JIT versions. Baseline is the Cog VM in Ubuntu 17.10. Benchmarks were selected from Marr et al.\\ in~\\cite{Marr:2016:AWFY}.', out.width = "0.95\\linewidth", fig.align="center">>=
-overview_box_plot(summarizedPerBenchAndVM, c(1,13))
+overview_box_plot(summarizedPerBenchAndVM, c(1,10))
 @
 }%
 
