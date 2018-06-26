@@ -12,13 +12,19 @@ SMALLTALK_DIR="$COGNOS_DIR/image"
 RESULTS_FILE_NAME="statistics.data"
 
 pushd $NOPSYS_SRC_DIR
+mv paging.c paging.c.bak
 INFO "Gathering nopsys src lines"
-printf "Nopsys, source code,C,,, " > "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+printf "Nopsys,Source code,C,,, " > "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 cat *.c | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
-printf "Nopsys, source code headers,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+printf "Nopsys,Font headers,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+cat fonttex.h | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+printf "Nopsys,Debugging console,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+cat console.* | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+printf "Nopsys,Source code headers,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 cat *.h | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
-printf "Nopsys, source code,Assembly,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+printf "Nopsys,Source code,Assembly,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 cat *.asm | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+mv paging.c.bak paging.c
 pushd "libc"
 printf "Nopsys, libc headers,C,,, " >> "../../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 find . -name '*.h' -exec cat {} + | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
