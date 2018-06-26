@@ -10,7 +10,14 @@ COGNOS_DIR="$BASE_DIR/CogNOS"
 VM_DEV_DIR="$COGNOS_DIR/image"
 BENCH_DATA_DIR_NAME="fileBenchData"
 
-INFO "Creating testData for filesystem experiments"
+INFO "Building interpreter"
+./buildAndInstall.sh interpreter
+OK "Done"
+INFO "Building JIT"
+./buildAndInstall.sh
+OK "Done"
+
+INFO "Creating testData for filesystem experiment"
 pushd $VM_DEV_DIR
 if [ ! -d $BENCH_DATA_DIR_NAME ]
 then
