@@ -20,12 +20,12 @@ if [ "$1" = "interpreter" ]
 then
 	PRODUCTS_NAME="sqstkspur64linuxht"
     INFO "Generating Interpreter Sources"
-    FILENAME="../../../SmalltalkPerformance/scripts/smalltalk/buildInterpreterSources.st"
+    FILENAME="../../../Performance/scripts/smalltalk/buildInterpreterSources.st"
     VM_VERSION_BUILD_DIR="$VM_BUILD_DIR/squeak.stack.spur/build"
 else  
 	PRODUCTS_NAME="cogspur64linuxht"
     INFO "Generating JIT Sources"
-    FILENAME="../../../SmalltalkPerformance/scripts/smalltalk/buildJitSources.st"
+    FILENAME="../../../Performance/scripts/smalltalk/buildJitSources.st"
     VM_VERSION_BUILD_DIR="$VM_BUILD_DIR/pharo.cog.spur/build"
 fi
 
