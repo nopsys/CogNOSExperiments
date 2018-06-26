@@ -13,7 +13,7 @@ IMAGE_DIR="$COGNOS_DIR/image"
 BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/platforms/nopsys/"
 IMAGE_NAME="SqueakNOS.image"
 VMNAME="cognos"
-ST_FILENAME_TP="../../SmalltalkPerformance/scripts/smalltalk/prepareForExperimentsTemplate.st"
+ST_FILENAME_TP="../../Performance/scripts/smalltalk/prepareForExperimentsTemplate.st"
 ST_FILENAME="prepareForExperiment.st"
 OUTPUT_FILE="resultsFromCogNOS.txt"
 
