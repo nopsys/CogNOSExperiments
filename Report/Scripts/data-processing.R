@@ -48,10 +48,13 @@ map_names <- function(old_names, name_map) {
 
 vmNamesMap <- function() {
   name_map <-     list(
-    "Pharo-interpreter-remote"     = "Pharo-IntR", 
-    "Pharo-JIT-remote"             = "Pharo-JitR",
-    "CogNOS-interpreter"           = "NOS-Int",
-    "CogNOS-jit"                   = "NOS-Jit")
+    "Pharo-interpreter-remote"       = "Cog-Int", 
+    "Pharo-JIT-remote"               = "Pharo-JitR",
+    "CogNOS-interpreter"             = "CogNos-Int",
+    "CogNOS-jit"                     = "CogNos-Jit",
+    "CogNOS-interpreter-hd"          = "CogNos",
+    "Pharo-interpreter-remote-fat32" = "CogZ-F32",
+    "CogNOS-interpreter-hd-ramdisk"  = "CogNos-RD")
   name_map
 }
 
