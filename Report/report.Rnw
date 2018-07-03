@@ -33,3 +33,5 @@ numberOfIterationsPerBenchmark <- 50
 <<Bootloading, child='Bootloading/overview.Rnw', results='asis'>>=
 @
 <<Statistics, child='SourceStatistics/overview.Rnw', results='asis'>>=
+@
+<<Devices-Performance, child='DevicesPerformance/overview.Rnw', results='asis'>>=

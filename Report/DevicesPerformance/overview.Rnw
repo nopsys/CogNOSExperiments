@@ -1,0 +1,59 @@
+<<Overview-Devices, echo=FALSE, message=FALSE>>=
+knitr::opts_chunk$set(fig.width=10, fig.height=5,
+                      echo=FALSE, warning=FALSE, message=FALSE, results="asis")
+
+steady <- getWarmedupData(paste(root_path, "data/devicesPerformance.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
+                          vmNamesMap(), 
+                          c("CogNos", "Cog-Int", "CogNos-RD"),
+                          numberOfIterationsPerBenchmark,
+                          10)
+
+steady <- ddply(steady, ~VM, summarise, 
+                Time = t.test(Value)$estimate,
+                Confidence    = 
+                  paste(
+                          paste("<", 
+                            round(t.test(Value)$conf.int[1], digits = 2), sep=""),
+                          paste(
+                            round(t.test(Value)$conf.int[2], digits = 2), ">", sep=""),
+                          sep=" - "),
+                Sd            = sd(Value),
+                Median        = median(Value),
+                Min           = min(Value),
+                Max           = max(Value))
+
+levels(steady$VM) <- revalue(levels(steady$VM), c("CogNos"="CogNos", "CogNos-RD"="CogNos-RD", "Cog-Int"="Cog"))
+
+@
+\def\DevicesPerfPlot{%
+<<devices-perf-overview, fig.width=5, fig.height=2, fig.cap="Time it takes to \\COGNOS vs Cog/Ubuntu17.10 to read 100 files from the same directory. \\COGNOS{}-RD uses a FAT32 filesystem mapped to a ram disk, \\COGNOS uses a FAT32 filesystem mapped to the ATA controller, and Cog-Int uses an ext3 filesystem. All versions use the interpreted VM flavor.", out.width = "0.95\\linewidth", fig.align="center">>=
+ggplot(steady,
+       aes(x=reorder(VM, Time), y=Time, fill=VM)) + 
+       geom_bar(stat="identity") + scale_fill_hue(c = 40) + 
+       theme_bw() +
+       labs(y="Miliseconds") +
+       theme(legend.position="none",
+             axis.title.x=element_blank(),
+             panel.border = element_blank(), 
+             panel.grid.major = element_blank(),
+             panel.grid.minor = element_blank(),
+             axis.line = element_line(colour = "black")) +
+       scale_y_log10() 
+       
+  #scale_fill_manual(values = c("red", "green", "blue"))
+@
+}%
+
+\def\DevicesPerformanceTableOverall{%
+<<devices-performance-overall-table>>=
+colnames <- c("Runtime", "Time","CI-95%","Sd.", "Min","Max", "Median")
+kable(arrange(steady, Time), 
+       booktabs = T,
+       format = "latex",
+       digits = 2,
+       caption = "Overall Filesystem Results",
+       col.names=colnames
+      )  %>%
+       kable_styling(latex_options = c("repeat_header"), font_size = 8)
+@
+}
