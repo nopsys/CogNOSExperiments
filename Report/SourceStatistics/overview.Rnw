@@ -10,6 +10,28 @@ data <- data[data$Package != "Storage-Tests"
              & data$Package != "Memory-Manager" & data$Package != "MemoryManager-Paging" & data$Package != "OFW-OLPC"
              & data$Package != "FileSupport" & data$Package != "PharoCompatibility",]
 
+languageNamesMap <- function() {
+  name_map <-     list(
+    "Assembly"   = "Asm", 
+    "C"          = "C",
+    "Smalltalk"  = "Smalltalk")
+  name_map
+}
+
+packageNamesMap <- function() {
+  name_map <-     list(
+    "Devices-Base"        = "Dev-Base", 
+    "Devices-Processor"   = "Dev-Storage",
+    "Devices-Storage"     = "Dev-Processor",
+    "External-Structures" = "Ext-Structures",
+    "Filesystems-FAT32"   = "FAT32",
+    "Source code headers" = "Headers",
+    "Source code"         = "Source")
+  name_map
+}
+
+#TODO: Change names in packages: devices -> dev; Filesystems-FAT32 -> FAT32; External-Structures -> Ext-Structures; Source code -> Source code headers -> headers; 
+
 debugging <- data[data$Package == "Debugging console",]
 fonts <- data[data$Package == "Font headers",]
 
@@ -36,7 +58,7 @@ print(
        format = "latex",
        caption = "Source code statistics",
        digits = 2)  %>%
-       kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
+       kable_styling(latex_options = c("repeat_header"), font_size = 10) %>%
        row_spec(1, hline_after = T) %>%
        row_spec(4, hline_after = T))
 @
@@ -50,50 +72,56 @@ print(
        format = "latex",
        caption = "Source code overall",
        digits = 2)  %>%
-       kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
+       kable_styling(latex_options = c("repeat_header"), font_size = 10) %>%
        row_spec(3, hline_after = T))
 @
 }
 
-
 \def\AssemblyLinesOfCode {%
 <<statistics-assemblyloc>>=
 cat(round(overall$LOC[overall$Language == "Assembly"], digits=2))
+cat("\\xspace")
 @
 }
 
 \def\CLinesOfCode {%
 <<statistics-cloc>>=
 cat(round(overall$LOC[overall$Language == "C"], digits=2))
+cat("\\xspace")
 @
 }
 
 \def\SmalltalkLinesOfCode {%
 <<statistics-smalltalkloc>>=
 cat(round(overall$LOC[overall$Language == "Smalltalk"], digits=2))
+cat("\\xspace")
 @
 }
 
 \def\DebuggingLinesOfCode {%
 <<statistics-debuggingloc>>=
 cat(round(debugging$LOC, digits=2))
+cat("\\xspace")
 @
 }
 
 \def\FontsLinesOfCode {%
 <<statistics-fontsloc>>=
 cat(round(fonts$LOC, digits=2))
+cat("\\xspace")
 @
 }
 
 \def\FontsAndDebbugingLinesOfCode {%
 <<statistics-debuggingfontsloc>>=
 cat(round(fonts$LOC, digits=2) + round(debugging$LOC, digits=2))
+cat("\\xspace")
 @
 }
 
 \def\CEssentialLinesOfCode {%
 <<statistics-essentialcloc>>=
 cat(round(overall$LOC[overall$Language == "C"], digits=2) - (round(fonts$LOC, digits=2) + round(debugging$LOC, digits=2)))
+cat("\\xspace")
 @
 }
