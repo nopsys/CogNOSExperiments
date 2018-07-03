@@ -13,36 +13,44 @@ ubuntuServer <- ubuntuServer[ubuntuServer$Cycles != max(ubuntuServer$Cycles),]
 
 #mins
 minUbuntu <- ubuntu[ubuntu$Cycles == min(ubuntu$Cycles),]
-minUbuntu$VM = "Ubu-min"
+minUbuntu$VM = "UbuD-min"
 minUbuntuServer <- ubuntuServer[ubuntuServer$Cycles == min(ubuntuServer$Cycles),]
-minUbuntuServer$VM = "Ubu-S-min"
+minUbuntuServer$VM = "UbuS-min"
 
 #maxs
 maxUbuntu <- ubuntu[ubuntu$Cycles == max(ubuntu$Cycles),]
-maxUbuntu$VM = "Ubu-max"
+maxUbuntu$VM = "UbuD-max"
 maxUbuntuServer <- ubuntuServer[ubuntuServer$Cycles == max(ubuntuServer$Cycles),]
-maxUbuntuServer$VM = "Ubu-S-max"
+maxUbuntuServer$VM = "UbuS-max"
 
 cognos <- steady[steady$VM == "CogNOS-iso-debug",]
 cognos$VM <- "CogNOS"
 minix <- steady[steady$VM == "Minix3",]
 minix$VM <- "Minix"
 
-boottimes <- rbind(minUbuntu, maxUbuntu, minUbuntuServer, maxUbuntuServer, cognos, minix) 
+boottimes <- rbind(minUbuntu, minUbuntuServer, cognos, minix) 
+
+boottimes$OF = boottimes$Cycles
+
+boottimes$OF <- boottimes$OF / boottimes$OF[boottimes$VM == "CogNOS"]
+
+boottimesNorm <- droplevels(subset(boottimes, VM != "CogNOS"))
+
 
 @
 \def\BoottimePlot{%
-<<boottimes-overview, fig.width=5, fig.height=2, fig.cap='Boot times comparison in terms of processor cycles taken from the moment the system becomes powered on. Results are expressed in logaritmhic scale.', out.width = "0.95\\linewidth", fig.align="center">>=
-ggplot(boottimes,
-       aes(x=reorder(VM, Cycles), y=log(Cycles), fill=VM)) + 
+<<boottimes-overview, fig.width=5, fig.height=2, fig.cap='Boot times comparison from the moment the system is powered on normalized to the amount of cycles it takes \\COGNOS to boot up. Ubuntu boot times are measured up to the point where the first service is initialized.', out.width = "0.95\\linewidth", fig.align="center">>=
+ggplot(boottimesNorm,
+       aes(x=reorder(VM, OF), y=OF, fill=VM), ylim=c(1,3)) + 
        geom_bar(stat="identity") + scale_fill_hue(c = 40) + 
        theme_bw() +
+       labs(y="Overhead Factor") +
        theme(legend.position="none",
              axis.title.x=element_blank(),
              panel.border = element_blank(), 
              panel.grid.major = element_blank(),
              panel.grid.minor = element_blank(),
-             axis.line = element_line(colour = "black"))
+             axis.line = element_line(colour = "black")) 
        
   #scale_fill_manual(values = c("red", "green", "blue"))
 @
@@ -50,13 +58,14 @@ ggplot(boottimes,
 
 \def\BoottimeTableSummary{%
 <<boottimes-table>>=
-boottimes <-boottimes[,c(1,3)]
+boottimes <-boottimes[,c(1,3,4)]
+boottimes$Cycles <- formatC(boottimes$Cycles, format = "e", digits = 2)
 print(
-  kable(arrange(boottimes, Cycles), 
+  kable(arrange(boottimes, OF), 
        booktabs = T,
        format = "latex",
        caption = "Boot Results",
        digits = 2)  %>%
-       kable_styling(latex_options = c("repeat_header"), font_size = 8))
+       kable_styling(latex_options = c("repeat_header"), font_size = 10))
 @
 }
