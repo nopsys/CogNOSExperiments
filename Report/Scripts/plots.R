@@ -84,7 +84,8 @@ overview_box_plot <- function(stats, yLimits) {
   
   plot <- plot +
     geom_boxplot(outlier.size = 0.5) + #fill=get_color(5, 7)
-    theme_bw() + theme_simple(font_size = 12) +
+    geom_hline(yintercept = 1, linetype = "dashed") +
+    theme_bw() + theme_simple(font_size = 10) +
     labs(x="") +
     theme(
       axis.title.x = element_blank(),
