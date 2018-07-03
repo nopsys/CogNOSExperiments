@@ -4,8 +4,16 @@ Report/data/
 Report/images/
 Report/*.log
 Report/report.tex
+*.Rhistory
 
 # Files left after experiments run
 SmalltalkPerformance/cognos.data
 SmalltalkPerformance/resultsFromCogNOS.txt
 SmalltalkPerformance/scripts/smalltalk/prepareForExperiment.st
+Bootloading/CogNOS-boottimes.data
+Bootloading/boottime.data
+Performance/basicPerformance.data
+Performance/devicesPerformance.data
+SourceCodeStatistics/statistics.data
+
+Performance/scripts/resultsFromCogNOS.txt

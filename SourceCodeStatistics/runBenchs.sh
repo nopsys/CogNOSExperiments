@@ -19,7 +19,7 @@ cat *.c | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RES
 printf "Nopsys,Font headers,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 cat fonttex.h | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 printf "Nopsys,Debugging console,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
-cat console.* | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
+cat console.* serial.c | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 printf "Nopsys,Source code headers,C,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 cat *.h | sed '/^\s*#/d;/^\s*$/d' | wc -l >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
 printf "Nopsys,Source code,Assembly,,, " >> "../../../SourceCodeStatistics/$RESULTS_FILE_NAME"
