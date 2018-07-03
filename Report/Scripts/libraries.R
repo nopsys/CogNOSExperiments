@@ -21,6 +21,7 @@ load_and_install_if_necessary("kableExtra") #tables
 load_and_install_if_necessary("mratios")    #Confidence intervals for ratios
 load_and_install_if_necessary("Rmisc")      #Confidence intervals for geometric means
 load_and_install_if_necessary("changepoint")
+load_and_install_if_necessary("gdata")    #Reorder function
 
 # avoid scientific notation for numbers, it's more readable to me
 options(scipen=999)
