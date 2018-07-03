@@ -6,7 +6,7 @@ source "$SCRIPT_PATH/../../scripts/basicFunctions.inc"
 
 IMAGE="../../../CogNOS/image/SqueakNOS.image"
 
-if [ $1 == "--interpreter" ]
+if [[ $1 == "--interpreter" || $1 == "--interp" ]]
 then
 VM_DIR="sqstkspur64linuxht"
 EXECUTALBE="squeak"
