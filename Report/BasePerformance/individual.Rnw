@@ -2,21 +2,28 @@
 knitr::opts_chunk$set(fig.width=10, fig.height=5,
                       echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE)
 
-steady <- getWarmedupData(paste(root_path, "data/cognos.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
+steady <- getWarmedupData(paste(root_path, "data/basicPerformance.data",sep="/"), c("Value", "Benchmark", "VM", "Suite", "Iteration"), 
                           vmNamesMap(),
-                          c("Pharo-IntR", "Pharo-JitR", "NOS-Int"),
+                          c("Cog-Int", "Pharo-JitR", "CogNos-Int", "CogNos-Jit"),
                           numberOfIterationsPerBenchmark,
-                          2)
+                          10)
+
+steady <- steady[steady$Benchmark != "Json",]
+
+steadyInt <- steady[steady$VM == "Cog-Int" | steady$VM == "CogNos-Int",]
+steadyJIT <- steady[steady$VM == "Pharo-JitR" | steady$VM == "CogNos-Jit",]
 
 jitPharo <- steady[steady$VM == "Pharo-JitR",]
-
 steadySummary <- summarizedPerBenchmark(steady, c(0,10000), jitPharo, "Pharo-JitR")
 @
 
 \def\IndividualPerformanceComparisonPlot{
-<<individual-performance, fig.width=5, fig.height=2, fig.cap='Overhead of TruffleMate normalized to TruffleSOM, clustered by micro and macro benchmarks, without (above) and with (below) optimizations', ,fig.align='center'>>=
-boxplotSteady <- boxplot(list(steady), TRUE, "OF", list('Pharo-JitR'), fill=TRUE)
-print(boxplotSteady)
+<<individual-performance, fig.width=5, fig.height=4, fig.cap='Overhead factor (OF) of \\NOS vs Cog/Ubuntu17.10 for both, interpreted mode (above) and JIT mode (below). Baselines are an interpreter and a JIT version of Cog respectively. Both baselines run on an Ubuntu on top of a VirtualBox.', out.width = "0.95\\linewidth" ,fig.align='center'>>=
+boxplotSteadyInt <- boxplot(list(steadyInt), TRUE, "OF", list('Cog-Int'))
+boxplotSteadyInt <- boxplotSteadyInt + ggtitle("Interpreter") + theme(plot.title = element_text(hjust=0.5, size=16), axis.text.x = element_blank(), plot.margin=unit(x=c(0.4,0,10,0),units="mm"))
+boxplotSteadyJit <- boxplot(list(steadyJIT), TRUE, "OF", list('Pharo-JitR'))
+boxplotSteadyJit <- boxplotSteadyJit + ggtitle("JIT") + theme(plot.title = element_text(hjust=0.5, size=16))
+multiplot(boxplotSteadyInt,boxplotSteadyJit, cols=1)
 @
 }
 
