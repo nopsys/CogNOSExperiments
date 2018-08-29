@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
-source `dirname $0`/basicFunctions.inc
 
-BASE_DIR=".."
+SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
+if [ ! -d $SCRIPT_PATH ]; then
+    echo "Could not determine absolute dir of $0"
+    echo "Maybe accessed with symlink"
+fi
+
+source $SCRIPT_PATH/basicFunctions.inc
+
+BASE_DIR="$SCRIPT_PATH/.."
 IMAGE_DIR="$BASE_DIR/CogNOS/image"
 IMAGE_NAME="SqueakNOS"
 ARE_WE_FAST_DIR="$BASE_DIR/are-we-fast-yet/benchmarks/Smalltalk/"
@@ -15,7 +22,7 @@ OK "Submodules initialized"
 
 INFO "Initializing CogNOS"
 pushd "$BASE_DIR/CogNOS"
-./scripts/setupRepoForExperiments.sh
+./scripts/setupRepo.sh -includeUnix
 popd > /dev/null
 OK "Submodules initialized"
 
