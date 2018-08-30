@@ -51,5 +51,6 @@ if [ "$1" = "-includeUnix" ]
 then
     INFO "Building and installing Unix VMs"
         $BASE_DIR/Performance/scripts/buildAndInstall.sh
+        $BASE_DIR/Performance/scripts/buildAndInstall.sh interpreter
     OK "done"
 fi
