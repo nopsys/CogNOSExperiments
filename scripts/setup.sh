@@ -24,7 +24,7 @@ INFO "Initializing CogNOS"
 pushd "$BASE_DIR/CogNOS"
 ./scripts/setupRepo.sh -includeUnix
 popd > /dev/null
-OK "Submodules initialized"
+OK "CogNOS initialized"
 
 INFO "Configuring Sparse checkout for the are-we-fast benchmarks submodule"
 cat > "$BASE_DIR/.git/modules/are-we-fast-yet/info/sparse-checkout" << EOF
@@ -43,9 +43,9 @@ then
     cp "$IMAGE_DIR/$IMAGE_NAME.image" "$ARE_WE_FAST_DIR/$IMAGE_NAME.image"
     cp "$IMAGE_DIR/$IMAGE_NAME.changes" "$ARE_WE_FAST_DIR/$IMAGE_NAME.changes"
     pushd $ARE_WE_FAST_DIR
-    ../../$IMAGE_DIR/pharo-ui $IMAGE_NAME.image build-image.st
-    mv "$IMAGE_NAME.image" "../../$IMAGE_DIR/$IMAGE_NAME.image" 
-    mv "$IMAGE_NAME.changes" "../../$IMAGE_DIR/$IMAGE_NAME.changes" 
+    $IMAGE_DIR/pharo-ui $IMAGE_NAME.image build-image.st
+    mv "$IMAGE_NAME.image" "$IMAGE_DIR/$IMAGE_NAME.image" 
+    mv "$IMAGE_NAME.changes" "$IMAGE_DIR/$IMAGE_NAME.changes" 
     popd > /dev/null
     OK "done"
 fi
