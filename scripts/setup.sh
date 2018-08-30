@@ -50,6 +50,9 @@ then
     OK "done"
 fi
 
-INFO "Building and installing Unix VMs"
-    $BASE_DIR/Performance/scripts/buildAndInstall.sh
-OK "done"
+if [ "$1" = "-includeUnix" ]
+then
+    INFO "Building and installing Unix VMs"
+        $BASE_DIR/Performance/scripts/buildAndInstall.sh
+    OK "done"
+fi
