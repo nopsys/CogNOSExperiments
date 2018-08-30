@@ -7,12 +7,9 @@ if [ ! -d $SCRIPT_PATH ]; then
     echo "Maybe accessed with symlink"
 fi
 
-source $SCRIPT_PATH/basicFunctions.inc
-
-SCRIPT_PATH="$SCRIPT_PATH/.."
-IMAGE_DIR="$BASE_DIR/CogNOS/image"
-IMAGE_NAME="SqueakNOS"
-ARE_WE_FAST_DIR="$BASE_DIR/are-we-fast-yet/benchmarks/Smalltalk/"
+source "$SCRIPT_PATH/basicFunctions.inc"
+BASE_DIR="$SCRIPT_PATH/.."
+source "$SCRIPT_PATH/config.inc"
 
 INFO "Initializing submodules"
 pushd $BASE_DIR
@@ -37,15 +34,15 @@ pushd $BASE_DIR/are-we-fast-yet/
 popd > /dev/null
 OK "Sparse checkout configured"
 
-if [ -f "$IMAGE_DIR/$IMAGE_NAME.image" ]
+if [ -f "$PHARO_DEV_IMAGE_DIR/$IMAGE_NAME.image" ]
 then
     INFO "Installing are we fast benchmarks into Pharo image"
-    cp "$IMAGE_DIR/$IMAGE_NAME.image" "$ARE_WE_FAST_DIR/$IMAGE_NAME.image"
-    cp "$IMAGE_DIR/$IMAGE_NAME.changes" "$ARE_WE_FAST_DIR/$IMAGE_NAME.changes"
-    pushd $ARE_WE_FAST_DIR
-    $IMAGE_DIR/pharo-ui $IMAGE_NAME.image build-image.st
-    mv "$IMAGE_NAME.image" "$IMAGE_DIR/$IMAGE_NAME.image" 
-    mv "$IMAGE_NAME.changes" "$IMAGE_DIR/$IMAGE_NAME.changes" 
+    cp "$PHARO_DEV_IMAGE_DIR/$COGNOS_DEV_IMAGE_NAME.image" "$ARE_WE_FAST_ST_BENCHS_DIR/$COGNOS_DEV_IMAGE_NAME.image"
+    cp "$PHARO_DEV_IMAGE_DIR/$COGNOS_DEV_IMAGE_NAME.changes" "$ARE_WE_FAST_ST_BENCHS_DIR/$COGNOS_DEV_IMAGE_NAME.changes"
+    pushd $ARE_WE_FAST_ST_BENCHS_DIR
+    $IMAGE_DIR/pharo-ui $COGNOS_DEV_IMAGE_NAME.image build-image.st
+    mv "$COGNOS_DEV_IMAGE_NAME.image" "$PHARO_DEV_IMAGE_DIR/$COGNOS_DEV_IMAGE_NAME.image" 
+    mv "$COGNOS_DEV_IMAGE_NAME.changes" "$PHARO_DEV_IMAGE_DIR/$COGNOS_DEV_IMAGE_NAME.changes" 
     popd > /dev/null
     OK "done"
 fi
