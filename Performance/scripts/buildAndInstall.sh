@@ -1,48 +1,47 @@
 #!/usr/bin/env bash
 set -e
 
-SCRIPT_PATH=`dirname $0`
+SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
+if [ ! -d $SCRIPT_PATH ]; then
+    echo "Could not determine absolute dir of $0"
+    echo "Maybe accessed with symlink"
+fi
 
 source "$SCRIPT_PATH/../../scripts/basicFunctions.inc"
+BASE_DIR="$SCRIPT_PATH/../.."
+source "$SCRIPT_PATH/../../scripts/config.inc"
 
-BASE_DIR="../.."
-COGNOS_DIR="$BASE_DIR/CogNOS"
-VM_DEV_DIR="$COGNOS_DIR/opensmalltalk-vm/image"
-VM_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/build.linux64x64"
-INT_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/"
-INSTALL_DIR="$BASE_DIR/Performance/implementations"
-PRODUCTS_DIR="$COGNOS_DIR/opensmalltalk-vm/products"
 
-pushd $VM_DEV_DIR
+pushd $VM_UNIX_DEV_DIR
 source get64VMName.sh
 
 if [ "$1" = "interpreter" ]    
 then
-	PRODUCTS_NAME="sqstkspur64linuxht"
+	VM_UNIX_NAME=$VM_UNIX_INT_NAME
     INFO "Generating Interpreter Sources"
-    FILENAME="../../../Performance/scripts/smalltalk/buildInterpreterSources.st"
-    VM_VERSION_BUILD_DIR="$VM_BUILD_DIR/squeak.stack.spur/build"
+    FILENAME=$VM_UNIX_BUILDSOURCES_INT_FILENAME
+    VM_VERSION_BUILD_DIR=$VM_UNIX_INT_BUILD_DIR
 else  
-	PRODUCTS_NAME="cogspur64linuxht"
+	VM_UNIX_NAME=$VM_UNIX_JIT_NAME
     INFO "Generating JIT Sources"
-    FILENAME="../../../Performance/scripts/smalltalk/buildJitSources.st"
-    VM_VERSION_BUILD_DIR="$VM_BUILD_DIR/pharo.cog.spur/build"
+    FILENAME=$VM_UNIX_BUILDSOURCES_JIT_FILENAME
+    VM_VERSION_BUILD_DIR=$VM_UNIX_JIT_BUILD_DIR
 fi
 
 INFO "Building sources"
-$VM -headless $BASE64.image $FILENAME
+$VM -headless $BASE64.image $VM_UNIX_BUILDSOURCES_JIT_FILENAME
 popd > /dev/null
 
 pushd "$VM_VERSION_BUILD_DIR"
     echo "y" | ./mvm
 popd > /dev/null
 
-if [ ! -d $INSTALL_DIR ]
+if [ ! -d $VM_UNIX_INSTALL_DIR ]
 then
-    mkdir $INSTALL_DIR
+    mkdir $VM_UNIX_INSTALL_DIR
 fi
 
-mv $PRODUCTS_DIR/$PRODUCTS_NAME $INSTALL_DIR/$PRODUCTS_NAME
+mv $VM_UNIX_PRODUCTS_DIR/$VM_UNIX_NAME $VM_UNIX_INSTALL_DIR/$VM_UNIX_NAME
 
 OK "done"
 

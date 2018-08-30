@@ -1,29 +1,25 @@
 #!/usr/bin/env bash
-SCRIPT_PATH=`dirname $0`
+SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
+if [ ! -d $SCRIPT_PATH ]; then
+    echo "Could not determine absolute dir of $0"
+    echo "Maybe accessed with symlink"
+fi
 
 exec 4<&1
 exec 1>/dev/null
 exec 2>&1
 
 source "$SCRIPT_PATH/../../scripts/basicFunctions.inc"
-
-BASE_DIR="../.."
-COGNOS_DIR="$BASE_DIR/CogNOS"
-IMAGE_DIR="$COGNOS_DIR/image"
-BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/platforms/nopsys/"
-IMAGE_NAME="SqueakNOS.image"
-VMNAME="cognos"
-ST_FILENAME_TP="../../Performance/scripts/smalltalk/prepareForExperimentsTemplate.st"
-ST_FILENAME="prepareForExperiment.st"
-OUTPUT_FILE="resultsFromCogNOS.txt"
+BASE_DIR="$SCRIPT_PATH/../.."
+source "$SCRIPT_PATH/../../scripts/config.inc"
 
 FILENAME=$(pwd)/$OUTPUT_FILE
-VBoxManage modifyvm "CogNOS-iso-debug" --uartmode1 file $FILENAME
+VBoxManage modifyvm "$COGNOS_VMNAME" --uartmode1 file $FILENAME
 
 INFO "Building image for experiment"
 pushd "$IMAGE_DIR" > /dev/null
 cp $IMAGE_NAME $IMAGE_NAME.bak
-cp $ST_FILENAME_TP $ST_FILENAME
+cp ST_FILENAME_PATH $ST_FILENAME
 sed -i.bak s/EXPERIMENT/$2/g $ST_FILENAME
 sed -i.bak s/ITERATIONSOUTER/$3/g $ST_FILENAME
 sed -i.bak s/ITERATIONSINNER/$4/g $ST_FILENAME
@@ -49,7 +45,7 @@ tail -n +9 $OUTPUT_FILE > $OUTPUT_FILE.bak2
 mv $OUTPUT_FILE.bak2 $OUTPUT_FILE
 sed -i.bak s/FINISHHHHH//g $OUTPUT_FILE
 rm $OUTPUT_FILE.bak
-VBoxManage controlvm "CogNOS-iso-debug" poweroff
+VBoxManage controlvm "$COGNOS_VMNAME" poweroff
 exec 1<&4
 cat $OUTPUT_FILE
 sleep 3s

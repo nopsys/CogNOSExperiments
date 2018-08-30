@@ -9,7 +9,7 @@ fi
 
 source $SCRIPT_PATH/basicFunctions.inc
 
-BASE_DIR="$SCRIPT_PATH/.."
+SCRIPT_PATH="$SCRIPT_PATH/.."
 IMAGE_DIR="$BASE_DIR/CogNOS/image"
 IMAGE_NAME="SqueakNOS"
 ARE_WE_FAST_DIR="$BASE_DIR/are-we-fast-yet/benchmarks/Smalltalk/"
@@ -49,3 +49,7 @@ then
     popd > /dev/null
     OK "done"
 fi
+
+INFO "Building and installing Unix VMs"
+    $BASE_DIR/Performance/scripts/buildAndInstall.sh
+OK "done"
