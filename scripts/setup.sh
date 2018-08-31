@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
 if [ ! -d $SCRIPT_PATH ]; then
     echo "Could not determine absolute dir of $0"
@@ -34,7 +33,7 @@ pushd $BASE_DIR/are-we-fast-yet/
 popd > /dev/null
 OK "Sparse checkout configured"
 
-if [ -f "$PHARO_DEV_IMAGE_DIR/$IMAGE_NAME.image" ]
+if [ -f "$PHARO_DEV_IMAGE_DIR/$COGNOS_DEV_IMAGE_NAME.image" ]
 then
     INFO "Installing are we fast benchmarks into Pharo image"
     cp "$PHARO_DEV_IMAGE_DIR/$COGNOS_DEV_IMAGE_NAME.image" "$ARE_WE_FAST_ST_BENCHS_DIR/$COGNOS_DEV_IMAGE_NAME.image"

@@ -6,8 +6,8 @@ set -e  # exit on error
 COGNOS_DIR="$BASE_DIR/CogNOS"
 BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/platforms/nopsys/"
 IMAGE_DIR="$COGNOS_DIR/image"
-ST_FILENAME_PATH="$BASE_DIR/Performance/scripts/smalltalk/$ST_FILENAME"
-ARE_WE_FAST_ST_BENCHS="$BASE_DIR/are-we-fast-yet/benchmarks/Smalltalk/"
+ARE_WE_FAST_ST_BENCHS_DIR="$BASE_DIR/are-we-fast-yet/benchmarks/Smalltalk/"
+VM_DEV_DIR="$BASE_DIR/opensmalltalk-vm/image"
 
 VM_UNIX_DEV_DIR="$COGNOS_DIR/opensmalltalk-vm/image"
 INT_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/"
@@ -17,12 +17,14 @@ VM_UNIX_BUILD_DIR="$COGNOS_DIR/opensmalltalk-vm/build.linux64x64"
 VM_UNIX_INT_BUILD_DIR="$VM_UNIX_BUILD_DIR/squeak.stack.spur/build"
 VM_UNIX_JIT_BUILD_DIR="$VM_UNIX_BUILD_DIR/pharo.cog.spur/build"
 
+PERFORMANCE_ST_SCRIPTS_DIR="$BASE_DIR/Performance/scripts/smalltalk"
 
 # Artifact names
-IMAGE_NAME="SqueakNOS.image"
 COGNOS_VMNAME="CogNOS-iso-debug"
-ST_FILENAME="prepareForExperiment.st"
-OUTPUT_FILE="resultsFromCogNOS.txt"
+ST_PERFORFORMANCE_HARNESS_FILENAME="prepareForExperiment.st"
+ST_PERFORFORMANCE_HARNESS_TEMPLATE_FILENAME="prepareForExperimentsTemplate.st"
+
+COGNOS_EXP_OUTPUT_FILE="resultsFromCogNOS.txt"
 
 PHARO_DEV_IMAGE_DIR="$BASE_DIR/CogNOS/image"
 COGNOS_DEV_IMAGE_NAME="SqueakNOS"

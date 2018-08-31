@@ -13,19 +13,19 @@ source "$SCRIPT_PATH/../../scripts/basicFunctions.inc"
 BASE_DIR="$SCRIPT_PATH/../.."
 source "$SCRIPT_PATH/../../scripts/config.inc"
 
-FILENAME=$(pwd)/$OUTPUT_FILE
+FILENAME=$(pwd)/$COGNOS_EXP_OUTPUT_FILE
 VBoxManage modifyvm "$COGNOS_VMNAME" --uartmode1 file $FILENAME
 
 INFO "Building image for experiment"
 pushd "$IMAGE_DIR" > /dev/null
-cp $IMAGE_NAME $IMAGE_NAME.bak
-cp ST_FILENAME_PATH $ST_FILENAME
-sed -i.bak s/EXPERIMENT/$2/g $ST_FILENAME
-sed -i.bak s/ITERATIONSOUTER/$3/g $ST_FILENAME
-sed -i.bak s/ITERATIONSINNER/$4/g $ST_FILENAME
-rm $ST_FILENAME.bak
-./pharo-ui $IMAGE_NAME $ST_FILENAME
-rm $ST_FILENAME
+cp "$COGNOS_DEV_IMAGE_NAME.image" "$COGNOS_DEV_IMAGE_NAME.image.bak"
+cp "$PERFORMANCE_ST_SCRIPTS_DIR/$ST_PERFORFORMANCE_HARNESS_TEMPLATE_FILENAME" "$ST_PERFORFORMANCE_HARNESS_FILENAME"
+sed -i.bak s/EXPERIMENT/$2/g "$ST_PERFORFORMANCE_HARNESS_FILENAME"
+sed -i.bak s/ITERATIONSOUTER/$3/g "$ST_PERFORFORMANCE_HARNESS_FILENAME"
+sed -i.bak s/ITERATIONSINNER/$4/g "$ST_PERFORFORMANCE_HARNESS_FILENAME"
+rm "$ST_PERFORFORMANCE_HARNESS_FILENAME.bak"
+./pharo-ui "$COGNOS_DEV_IMAGE_NAME.image" "$ST_PERFORFORMANCE_HARNESS_FILENAME"
+rm "$ST_PERFORFORMANCE_HARNESS_FILENAME"
 popd > /dev/null
 pushd "$BUILD_DIR" > /dev/null
 if [ -f "../../../nopsys/build/nopsys.iso" ]
@@ -34,19 +34,19 @@ then
 fi
 make try-virtualbox-iso > /dev/null
 popd > /dev/null
-while ! grep -q "FINISHHHHH" "$OUTPUT_FILE" > /dev/null;
+while ! grep -q "FINISHHHHH" "$FILENAME" > /dev/null;
 do
     sleep 1s
 done
 pushd "$IMAGE_DIR"
-mv $IMAGE_NAME.bak $IMAGE_NAME
+mv "$COGNOS_DEV_IMAGE_NAME.image.bak" "COGNOS_DEV_IMAGE_NAME.image"
 popd > /dev/null
-tail -n +9 $OUTPUT_FILE > $OUTPUT_FILE.bak2
-mv $OUTPUT_FILE.bak2 $OUTPUT_FILE
-sed -i.bak s/FINISHHHHH//g $OUTPUT_FILE
-rm $OUTPUT_FILE.bak
+tail -n +9 $COGNOS_EXP_OUTPUT_FILE > $COGNOS_EXP_OUTPUT_FILE.bak2
+mv $COGNOS_EXP_OUTPUT_FILE.bak2 $COGNOS_EXP_OUTPUT_FILE
+sed -i.bak s/FINISHHHHH//g $COGNOS_EXP_OUTPUT_FILE
+rm $COGNOS_EXP_OUTPUT_FILE.bak
 VBoxManage controlvm "$COGNOS_VMNAME" poweroff
 exec 1<&4
-cat $OUTPUT_FILE
+cat $COGNOS_EXP_OUTPUT_FILE
 sleep 3s
 exit 0

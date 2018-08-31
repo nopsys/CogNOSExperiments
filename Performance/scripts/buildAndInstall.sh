@@ -29,7 +29,7 @@ else
 fi
 
 INFO "Building sources"
-$VM -headless $BASE64.image $VM_UNIX_BUILDSOURCES_JIT_FILENAME
+$VM -headless $BASE64.image $FILENAME
 popd > /dev/null
 
 pushd "$VM_VERSION_BUILD_DIR"
