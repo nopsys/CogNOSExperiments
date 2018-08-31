@@ -19,7 +19,7 @@ If you are interested only on the performance experiments, the Ubuntu desktop is
 
 ## Setup
 
-### In machine running the experiments
+### In the machine that will run the experiments
     
     git clone https://github.com/nopsys/CogNOSexperiments
     cd CogNOSexperiments
