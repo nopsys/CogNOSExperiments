@@ -39,3 +39,19 @@ To run the Performance experiments:
 
     cd Performance
     sudo rebench cognos.conf
+
+## Reports
+The reporting infrastructure depends on [knitr](https://yihui.name/knitr/) to generate a latex file with all the information and the corresponding plots.
+
+To generate this file (report.tex) and the images (images directory):
+    
+    cd Report
+    ./compile.sh report.Rnw 
+
+To copy report.tex and the images to another directory, for instance, a paper that uses this information:
+   
+    cd ..
+    ./scripts/update-paper.sh
+    
+Note that previously, you will have to setup the target directory in [update-paper.sh](scripts/update-paper.sh)     
+   
